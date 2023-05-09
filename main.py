@@ -1,7 +1,6 @@
 import argparse
-from requests import get
 import requests
-
+from termcolor import colored
 parser = argparse.ArgumentParser()
 parser.add_argument('--file', '-f',
                     help='Specify the path to the file containing URLs',
@@ -15,7 +14,6 @@ if args.file:
         file_as_list = contents.splitlines()
         for line in file_as_list:
             if 'X-Frame-Options' in requests.get(line).headers:
-                print(line, " IS SAFE!")
+                print(colored(line, " IS SAFE!", "green"))
             else:
-                print(line, " IS NOT SAFE!")
-
+                print(colored(line, " IS VULNERABLE!", "red"))
